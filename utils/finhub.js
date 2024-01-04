@@ -10,8 +10,10 @@ const finnhubClient = new finnhub.DefaultApi();
 const today = new Date();
 today.setDate(today.getDate() - 1);
 const date = `${today.getFullYear()}-${
-  today.getMonth() + 1
-}-${today.getDate()}`;
+  today.getMonth() + 1 < 10
+    ? "0" + (today.getMonth() + 1)
+    : today.getMonth() + 1
+}-${today.getDate() < 10 ? "0" + today.getDate() : today.getDate()}`;
 exports.marketNews = async () => {
   return new Promise((resolve, reject) => {
     finnhubClient.marketNews("general", {}, (error, data, response) => {
